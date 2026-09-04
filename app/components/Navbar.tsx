@@ -28,7 +28,7 @@ export default function Navbar() {
               </span>
             </div>
             <p className="text-emerald-100 text-xs font-medium leading-tight mt-0.5">
-              Centro de Innovación Agroindustrial y de Servicios
+              Centro de Formación las Quinchas
             </p>
           </div>
         </Link>

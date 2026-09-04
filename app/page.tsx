@@ -14,14 +14,14 @@ export default function HomePage() {
           {/* BADGE DEL CENTRO */}
           <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 text-xs font-bold px-4 py-2 rounded-full mb-6 border border-emerald-200 shadow-sm">
             <Building2 className="w-4 h-4 text-emerald-600" />
-            <span>Centro de Innovación Agroindustrial y de Servicios (CIAS)</span>
+            <span>Centro de Formación las Quinchas</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
             Elección de Representantes <span className="text-emerald-600">SENA</span>
           </h1>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Plataforma digital oficial para la votación transparente, ágil y confiable de voceros y representantes de los aprendices del centro CIAS.
+            Plataforma digital oficial para la votación transparente, ágil y confiable de voceros y representantes de los aprendices del Centro las Quinchas.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ export default function HomePage() {
               </div>
               <h2 className="text-2xl font-bold text-slate-800 mb-2">Módulo del Aprendiz</h2>
               <p className="text-slate-500 text-sm mb-6 leading-relaxed">
-                Ingresa con tu número de documento de identidad para verificar tu registro en el censo del CIAS y emitir tu voto de forma anónima.
+                Ingresa con tu número de documento de identidad para verificar tu registro en el censo de las Quinchas y emitir tu voto de forma anónima.
               </p>
             </div>
             <Link
@@ -53,7 +53,7 @@ export default function HomePage() {
               <div className="bg-slate-100 text-slate-700 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-slate-200 group-hover:scale-110 transition-transform">
                 <Users className="w-7 h-7" />
               </div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-2">Comité Electoral CIAS</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-2">Comité Electoral las Quinchas</h2>
               <p className="text-slate-500 text-sm mb-6 leading-relaxed">
                 Panel reservado para coordinadores y dinamizadores para la carga de aprendices, configuración de tarjetas electorales y actas.
               </p>
