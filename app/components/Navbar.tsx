@@ -24,7 +24,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               <h1 className="font-black text-lg leading-none tracking-tight">SENA</h1>
               <span className="bg-emerald-800 text-emerald-200 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider border border-emerald-600">
-                CIAS
+                Las Quinchas
               </span>
             </div>
             <p className="text-emerald-100 text-xs font-medium leading-tight mt-0.5">
