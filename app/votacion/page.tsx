@@ -26,6 +26,9 @@ export default function VotacionPage() {
   const [mensaje, setMensaje] = useState<{ tipo: 'error' | 'exito'; texto: string } | null>(null);
   const [votoExitoso, setVotoExitoso] = useState(false);
   const [mostrarModalConfirmacion, setMostrarModalConfirmacion] = useState(false);
+  // 1. Separar los postulantes del voto en blanco
+  const candidatosPostulantes = candidatos.filter((c) => c.numero !== 0);
+  const opcionBlanco = candidatos.find((c) => c.numero === 0);
 
   useEffect(() => {
     async function cargarCandidatos() {
@@ -211,57 +214,107 @@ export default function VotacionPage() {
 
             {/* TARJETÓN ELECTORAL */}
             {/* GRID DE CANDIDATOS EN LA VISTA DEL VOTANTE */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {candidatos.map((cand) => {
-    const seleccionado = candidatoSeleccionado?.id === cand.id;
-    return (
-      <div
-        key={cand.id}
-        onClick={() => setCandidatoSeleccionado(cand)}
-        className={`bg-white rounded-3xl p-6 border-2 transition-all cursor-pointer relative flex flex-col justify-between ${
-          seleccionado
-            ? 'border-emerald-500 ring-4 ring-emerald-500/10 shadow-lg scale-[1.02]'
-            : 'border-slate-200 hover:border-slate-300 shadow-sm'
-        }`}
-      >
-        <div>
-          <div className="flex justify-between items-start mb-3">
-            <span className="text-3xl font-black text-slate-300">
-              #{cand.numero < 10 ? `0${cand.numero}` : cand.numero}
-            </span>
-            {seleccionado && (
-              <span className="bg-emerald-500 text-white rounded-full p-1 shadow-sm">
-                <CheckCircle2 className="w-5 h-5" />
-              </span>
-            )}
+{/* CONTENEDOR PRINCIPAL DEL TARJETÓN */}
+<div className="space-y-8">
+  {/* 1. SECCIÓN SUPERIOR: CANDIDATOS POSTULANTES (EN IGUALDAD DE CONDICIONES) */}
+  <div>
+    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">
+      Candidatos Postulantes
+    </h3>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {candidatosPostulantes.map((cand) => {
+        const seleccionado = candidatoSeleccionado?.id === cand.id;
+        return (
+          <div
+            key={cand.id}
+            onClick={() => setCandidatoSeleccionado(cand)}
+            className={`bg-white rounded-3xl p-6 border-2 transition-all cursor-pointer relative flex flex-col justify-between ${
+              seleccionado
+                ? 'border-emerald-500 ring-4 ring-emerald-500/10 shadow-lg scale-[1.02]'
+                : 'border-slate-200 hover:border-slate-300 shadow-sm'
+            }`}
+          >
+            <div>
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-black text-slate-300">
+                  #{cand.numero < 10 ? `0${cand.numero}` : cand.numero}
+                </span>
+                {seleccionado && (
+                  <span className="bg-emerald-500 text-white rounded-full p-1 shadow-sm">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </span>
+                )}
+              </div>
+
+              {/* FOTOGRAFÍA DESTACADA */}
+              <div className="w-40 h-40 bg-slate-100 rounded-2xl mx-auto mb-4 flex items-center justify-center overflow-hidden border border-slate-200 shadow-inner">
+                {cand.foto_url ? (
+                  <img
+                    src={cand.foto_url}
+                    alt={cand.nombre}
+                    className="w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <User className="w-16 h-16 text-slate-400" />
+                )}
+              </div>
+
+              <h3 className="text-lg font-bold text-center text-slate-800 leading-tight">
+                {cand.nombre}
+              </h3>
+
+              {(cand as any).formacion && (
+                <p className="text-xs font-semibold text-emerald-600 text-center mt-1">
+                  {(cand as any).formacion}
+                </p>
+              )}
+            </div>
           </div>
+        );
+      })}
+    </div>
+  </div>
 
-          {/* FOTO GRANDE Y RESALTADA */}
-          <div className="w-44 h-44 bg-slate-100 rounded-2xl mx-auto mb-4 flex items-center justify-center overflow-hidden border border-slate-200 shadow-inner">
-            {cand.foto_url ? (
-              <img
-                src={cand.foto_url}
-                alt={cand.nombre}
-                className="w-full h-full object-cover object-top"
-              />
-            ) : (
-              <User className="w-16 h-16 text-slate-400" />
-            )}
-          </div>
+  {/* 2. SECCIÓN INFERIOR: VOTO EN BLANCO CENTRADO */}
+  {opcionBlanco && (
+    <div className="pt-4 border-t border-slate-200">
+      <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 text-center">
+        Opción Institucional
+      </h3>
+      <div className="flex justify-center">
+        <div
+          onClick={() => setCandidatoSeleccionado(opcionBlanco)}
+          className={`w-full max-w-sm bg-white rounded-3xl p-6 border-2 transition-all cursor-pointer relative flex flex-col justify-between ${
+            candidatoSeleccionado?.id === opcionBlanco.id
+              ? 'border-emerald-500 ring-4 ring-emerald-500/10 shadow-lg scale-[1.02]'
+              : 'border-slate-200 hover:border-slate-300 shadow-sm'
+          }`}
+        >
+          <div>
+            <div className="flex justify-between items-start mb-3">
+              <span className="text-3xl font-black text-slate-300">#00</span>
+              {candidatoSeleccionado?.id === opcionBlanco.id && (
+                <span className="bg-emerald-500 text-white rounded-full p-1 shadow-sm">
+                  <CheckCircle2 className="w-5 h-5" />
+                </span>
+              )}
+            </div>
 
-          <h3 className="text-lg font-bold text-center text-slate-800 leading-tight">
-            {cand.nombre}
-          </h3>
+            <div className="w-32 h-32 bg-slate-100 rounded-2xl mx-auto mb-4 flex items-center justify-center border border-slate-200 shadow-inner">
+              <User className="w-14 h-14 text-slate-400" />
+            </div>
 
-          {(cand as any).formacion && (
-            <p className="text-xs font-semibold text-emerald-600 text-center mt-1">
-              {(cand as any).formacion}
+            <h3 className="text-lg font-bold text-center text-slate-800 leading-tight">
+              VOTO EN BLANCO
+            </h3>
+            <p className="text-xs text-slate-400 text-center mt-1">
+              Opción de inconformidad o abstención deliberada
             </p>
-          )}
+          </div>
         </div>
       </div>
-    );
-  })}
+    </div>
+  )}
 </div>
 
             <div className="bg-white p-6 rounded-2xl border border-slate-200 flex items-center justify-between">
